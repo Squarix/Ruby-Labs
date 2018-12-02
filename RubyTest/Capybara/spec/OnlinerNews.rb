@@ -5,16 +5,44 @@ Capybara.register_driver :firefox do |app|
   Capybara::Selenium::Driver.new(app, :browser => :firefox)
 end
 Capybara.javascript_driver = :firefox
-Capybara.configure do |config|
-  config.default_max_wait_time = 5
-  config.default_driver = :selenium
+Capybara.default_max_wait_time = 5
+Capybara.default_driver = :selenium
+
+page = Capybara.current_session
+page.visit('http://www.onliner.by')
+
+link = page.all('h2 a')
+link.first.click
+
+result = []
+images = []
+descriptions = []
+titles = []
+
+page.all('div', class: 'news-tidings__speech').each do |el|
+  descriptions.push(el.text[0..200])
 end
 
+page.all('span', class: 'news-helpers_hide_mobile-small').each do |el|
+  titles.push(el.text)
+end
 
+page.all('div', class: 'news-tidings__image').each do |el|
+  images.push(el['style'])
+end
 
-Capybara.current_session.visit('http://www.onliner.by')
-Capybara.default_selector = :xpath
-csv_text = Capybara.current_session.evaluate_script('$(".b-section-main__col-fig").attr("src")') + '\n'
-csv_text += Capybara.current_session.evaluate_script('$(".b-main-page-news-2__news-list-image a img").attr("src")') + '\n'
+images.length.times do |i|
+  result[i] =
+    {
+      image: images[i],
+      title: titles[i],
+      description: descriptions[i]
+    }
+end
 
-csv_text += Capybara.current_session.evaluate_script('$(".b-main-page-news-2__news-list-text p").text()')
+file = 'data.csv'
+File.open(file, 'w') do |csv|
+  result.each do |item|
+    csv << "\n#{item[:image]}\n#{item[:title]}\n#{item[:description]}\n\n"
+  end
+end

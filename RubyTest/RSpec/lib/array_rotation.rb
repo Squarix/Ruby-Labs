@@ -22,7 +22,11 @@ class NewArray
   end
 
   def lookup
+    if @array.length == 0
+      return 'Error'
+    end
     @array.each { |x| puts x; }
+    return true
   end
 
   def get_array
@@ -30,7 +34,7 @@ class NewArray
   end
 end
 
-array1 = NewArray.new([1, 2, 3, 4, 5])
-array1.lookup
-array1.rotate_arr(2)
-array1.lookup
+#array1 = NewArray.new([1, 2, 3, 4, 5])
+#array1.lookup
+#array1.rotate_arr(2)
+#array1.lookup
