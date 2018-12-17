@@ -1,0 +1,14 @@
+.sign-header {
+	font-size: 24pt;
+	text-align: center;
+	font-family: Arial;
+	color: #3423a6;
+	font-weight: 700;
+	margin: 10px, 0;
+}
+
+.sign-label {
+	margin-top: 15px;
+	font-size: 13pt;
+	text-align: left;
+}
