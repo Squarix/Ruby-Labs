@@ -1,0 +1,28 @@
+<% if @category.errors.any? %>
+  <div class="alert alert-danger">
+    <h5><%= t('common.errors') %></h5>
+    <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="d-flex justify-content-center">
+  <%= form_for [:admin, @category], html: { multipart: true } do |f| %>
+    <div class="form-group">
+      <div class="field">
+        <%= f.label :name, :class => "sign-label" %>
+        <%= f.text_field :name, :class => "form-control" %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :parent_id, :class => "sign-label"%>
+        <%= f.collection_select :parent_id, Category.where("id != '#{@category.id}'").order(:name), :id, :name, { include_blank: true }, :class => "form-control"%>
+      </div>
+    </div>
+    <div class="actions d-flex justify-content-center">
+      <%= f.submit "submit", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

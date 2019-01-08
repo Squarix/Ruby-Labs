@@ -7,9 +7,91 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-
   <body>
-    <%= yield %>
+    <section>
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">MediaShare</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Главная/Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/posts">Посты/Posts</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск/Search</button>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                  <div class="collapse navbar-collapse" id="navbar2">
+                    <ul class="navbar-nav mr-auto">
+                    <% if user_signed_in? %>
+                      <li class="nav-item active">
+                        <a class="nav-link" href="/profile">Мой профиль/Profile</a>
+                      </li>
+                    <% else %>
+                      <li class="nav-item active">
+                        <%= link_to "Login/Авторизация", new_user_session_path, :class => 'nav-link' %>
+                      </li>
+                      <li class="nav-item active">
+                        <%= link_to "Registration/Регистрация", new_user_registration_path, :class => 'nav-link' %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </nav>
+            </form>
+          </div>
+        </nav>
+        <div class="work-aria_long m-auto">
+          <div class="jumbotron main-jn">
+            <h1> Mediashare </h1>
+            <p> Best media experience  </p>
+          </div>
+      </header>
+    </section>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <% flash.each do |name, message| %>
+              <div class="alert <%= bootstrap_class_for(name) %>">
+                <button class="close" data-dismiss="alert">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
+    </section>
+    <section>
+      <footer class="text-muted">
+        <hr>  
+        <div class="container">
+          <p class="float-right">
+            <a href="#">Back to top</a>
+          </p>
+          <p>MediaShare © Zhmishenko V.A. 2018-2019 </p>
+          <p>New to MediaShare? <a href="/posts">Visit the posts page</a></p>
+        </div>
+      </footer>
+    </section>
   </body>
 </html>

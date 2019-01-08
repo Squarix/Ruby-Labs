@@ -1,0 +1,16 @@
+<div class="col-lg-3 col-md-4 col-sm-12 post-preview">
+  <div class="container d-flex flex-column flex-wrap align-items-center justify-content-center container_form preview-content">
+  	<div class="d-inline">
+  	  <h5 class="text-center mb-0"><%= link_to post.title, post_path(post) %></h5>
+  	</div>
+  	<div class="preview_img">
+  	  <%= image_tag post.image.url(:thumb) if post.image? %>
+  	</div>
+  	<div class="tags">
+  	  <% if post.category_id? %>
+  	    <span class="badge badge-primary"><%= raw post.category(&:name) %></span>
+  	  <% end %>
+  	  <%= raw post.tags.map(&:name).map { |t| link_to t, tag_path(t), class: 'badge badge-secondary'}.join(' ') %>
+  	</div>
+  </div>
+</div>
