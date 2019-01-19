@@ -36,9 +36,12 @@
         <%= f.label :all_tags, :class => "sign-label" %>
         <%= f.text_field :all_tags, :class => "form-control" %>
       </div> 
-      <div class="form-field"> 
-        <%= f.label :image, :class => "sign-label" %>
-        <%= f.file_field :image, :class => "" %>
+      <div class="form-field upload-file"> 
+        <%= f.label 'Image: ', :class => "sign-label" %>
+        <div class="file btn btn-sm btn-primary">
+          Upload
+          <%= f.file_field :image, :class => "" %>
+        </div>
       </div>
       <input type="hidden" name="post[user_id]" value="<%= current_user.id %>" id="post_user_id">
     </div>

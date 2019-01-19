@@ -1,5 +1,60 @@
-<h1><%= @post.title %></h1>
-<%= image_tag @post.image.url if @post.image? %>
-<p><%= @post.description %></p>
-<%= link_to 'Изменить', edit_post_path(@post) %> 
-<%= link_to 'Удалить', post_path(@post), method: :delete, data: { confirm: 'Вы уверены?'} %>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h2>
+  	<%= @post.title %>
+    <span class="post-header_addition"><i>by <%= link_to @post.user.email, post_path(@post) %></i></span>
+  </h2>
+</div>
+<div class="row">	
+  <div class="col-lg-9 col-md-12 col-sm-12 mb-3">
+  	<div class="image-container">
+  	  <%= image_tag @post.image.url(:full), :class => 'post-image' if @post.image? %>
+  	</div>
+  </div>
+  <div class="col-lg-3 col-md-12 col-sm-12">
+  	<h4 class="user-image text-center mb-3 ma">Description<hr></h4>
+    <p><%= @post.description %></p><hr/>
+    <div class="text-center">
+      <% if user_signed_in? %>	
+        <% if current_user.id == @post.user.id || current_user.admin? %>
+          <%= link_to 'Edit', edit_post_path(@post) %> 
+  	      <%= link_to 'Delete', post_path(@post), :class => 'ml-4', method: :delete, data: { confirm: 'Вы уверены?'} %>
+  	    <% end %>
+  	  <% end %>
+  	</div>
+  </div>
+</div>
+
+<div class="comments">
+  <h3 class="font-weight-bold mt-4">Comments</h5>
+  <% if user_signed_in? %>
+	<%= form_for [@post, Comment.new] do |f| %>
+	  <div class="form-group">
+	    <div class="form-field">
+	  	  <%= f.label 'Leave your comment', :class => 'comment-label' %>
+	      <%= f.text_area :body, placeholder: "Add a comment", :class => "form-control" %><br/>
+		  <input type="hidden" name="comment[user_id]" id="comment_user_id" value=<%= current_user.id %>>
+		</div>
+		<div class="actions d-flex justify-content-center">
+	      <%= f.submit "Submit", :class => "btn btn-primary" %>
+	    </div>
+	  </div>
+	<% end %>
+  <% else %>
+    <section class="jumbotron text-center">
+      <div class="container">
+	    <h1 class="jumbotron-heading">Hey buddy, you aren't signed yet.</h1>
+        <p class="lead text-muted">
+          As we can see, you haven't joined us yet. Before this you are unable to comment posts.
+          Maybe it a good chance to do it right now 	
+    	</p>
+    	<p>
+	      <%= link_to "Login", new_user_session_path, :class => 'btn btn-primary my-2' %>
+	      <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-secondary my-2' %>
+        </p>
+      </div>
+    </section>	
+  <% end %>
+  <ul>
+    <%= render(partial: 'comments/comment', collection: @comments) %>
+  </ul>
+</div>
