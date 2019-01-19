@@ -13,7 +13,16 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require autocomplete
+//= require jquery.easy-autocomplete
+//= require colorbox-rails
+//= require_tree .
+
+$(document).ready(function() {
+  $('[data-colorbox]').colorbox({
+  	current: 'Фото {current} из {total}',
+  });	
+})

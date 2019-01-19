@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 .sign-header {
 	font-size: 24pt;
 	text-align: center;
@@ -94,4 +98,9 @@ footer {
 
 footer p {
   margin-bottom: .25rem;
+}
+
+.table-links td {
+  width: 33%; 
+  text-align: center;
 }

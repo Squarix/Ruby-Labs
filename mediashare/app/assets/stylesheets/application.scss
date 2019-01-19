@@ -1,6 +1,13 @@
+/*
+*= require defaults
+*= require home
+*= require colorbox-rails
+*= require easy-autocomplete
+*= require easy-autocomplete.themes
+*= require posts
+*/
+
 @import "bootstrap";
-@import "defaults.css";
-@import "home.scss";
 
 body {
   font-family: 'Fira Sans',sans-serif;

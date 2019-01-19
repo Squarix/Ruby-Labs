@@ -1,3 +1,39 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.post-image {
+	max-width: 100%;
+    height: auto;
+}
+
+.post-header_addition {
+	font-size: 60%;
+}
+
+.comment-label {
+	font-size: 150%;
+}
+
+.post-header_addition a {
+	color: #343a40;
+	text-decoration: none;
+}
+
+@media screen and (min-width: 786px) {
+	.image-container {
+		padding-right: 50px;
+	}
+}
+
+.upload-file div {
+  position: relative;
+  overflow: hidden;
+}
+.upload-file input {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
