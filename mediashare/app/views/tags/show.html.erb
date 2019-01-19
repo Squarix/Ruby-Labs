@@ -4,7 +4,7 @@
 </div>
 
 <% if @tag.posts.empty? %>
-  <h2>Постов нет</h2>
+  <div class="alert danger-alert">Nothing found</div>
 <% else %>
   <div class="row">
   	<%= render @tag.posts %>    

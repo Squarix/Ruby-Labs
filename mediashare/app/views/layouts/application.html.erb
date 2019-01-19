@@ -4,7 +4,6 @@
     <title>Mediashare</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,43 +19,40 @@
           <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/">Главная/Home</a>
+                <a class="nav-link" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/posts">Посты/Posts</a>
+                <a class="nav-link" href="/posts">Posts</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Post menu</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="/posts/new">Create</a>
                 </div>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск/Search</button>
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                  <div class="collapse navbar-collapse" id="navbar2">
-                    <ul class="navbar-nav mr-auto">
-                    <% if user_signed_in? %>
-                      <li class="nav-item active">
-                        <a class="nav-link" href="/profile">Мой профиль/Profile</a>
-                      </li>
-                    <% else %>
-                      <li class="nav-item active">
-                        <%= link_to "Login/Авторизация", new_user_session_path, :class => 'nav-link' %>
-                      </li>
-                      <li class="nav-item active">
-                        <%= link_to "Registration/Регистрация", new_user_registration_path, :class => 'nav-link' %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
-              </nav>
-            </form>
+            <%= form_tag posts_path, method: :get, :class => 'form-inline my-2 my-lg-0' do %>
+              <%= text_field_tag :query, '', :class => 'form-control mr-sm-2', placeholder: 'Search' %>
+              <%= submit_tag 'Search', :class => 'btn btn-outline-info my-2 my-sm-0' %>
+            <% end %>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="collapse navbar-collapse" id="navbar2">
+                <ul class="navbar-nav mr-auto">
+                  <% if user_signed_in? %>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/profile">My Profile</a>
+                    </li>
+                  <% else %>
+                    <li class="nav-item active">
+                      <%= link_to "Sign in", new_user_session_path, :class => 'nav-link' %>
+                    </li>
+                    <li class="nav-item active">
+                      <%= link_to "Sign up", new_user_registration_path, :class => 'nav-link' %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </nav>
           </div>
         </nav>
         <div class="work-aria_long m-auto">
